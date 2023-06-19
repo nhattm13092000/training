@@ -1,15 +1,21 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
 
-const signin = () => {
+const signUp = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+
+  const onSubmit = () => {
+    console.log("Done");
   };
   return (
     <div className="bg-gray-50 dark:bg-gray-900 h-[100vh] flex items-center justify-center">
@@ -27,6 +33,7 @@ const signin = () => {
                 Your email:
               </label>
               <input
+                value={input.email}
                 placeholder="name@company.com"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 {...register("email", {
@@ -36,6 +43,12 @@ const signin = () => {
                     message: "Invalid email address",
                   },
                 })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.name,
+                  })
+                }
               />
               {errors.email && <span>{errors.email.message?.toString()}</span>}
             </div>
@@ -50,6 +63,7 @@ const signin = () => {
               <input
                 id="password"
                 placeholder="Input password"
+                value={input.password}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 {...register("password", {
                   required: "required",
@@ -58,6 +72,12 @@ const signin = () => {
                     message: "min length is 5",
                   },
                 })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.name,
+                  })
+                }
                 type="password"
               />
               {errors.password && (
@@ -72,10 +92,10 @@ const signin = () => {
                 Password
               </label>
               <input
-                id="password"
-                placeholder="Input password"
+                id="rewritepassword"
+                placeholder="Rewrite password"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("password", {
+                {...register("rewritepassword", {
                   required: "required",
                   minLength: {
                     value: 5,
@@ -84,8 +104,8 @@ const signin = () => {
                 })}
                 type="password"
               />
-              {errors.password && (
-                <span role="alert">{errors.password.message?.toString()}</span>
+              {errors.rewritepassword && (
+                <span role="alert">{errors.rewritepassword.message?.toString()}</span>
               )}
             </div>
             <button
@@ -111,4 +131,4 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default signUp;

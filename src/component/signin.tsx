@@ -10,8 +10,7 @@ const signin = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = () => {
     navigate('/welcome')
   };
   return (
@@ -96,7 +95,7 @@ const signin = () => {
             </button>
 
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-              Don't have any account yet?{" "}
+              Dont have any account yet?
               <NavLink
                 to="/signup"
                 className="font-medium text-[rgb(37,99,235,1)] hover:underline dark:text-primary-500"

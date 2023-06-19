@@ -32,7 +32,7 @@ const Lesson3 = () => {
       jobArea: string;
       phone: string;
       subscriptionTier: string;
-    }[] = [];;
+    }[] = [];
     for (let i = 1; i <= 100; i++) {
       const id = i;
       const firstName = faker.person.firstName();
@@ -74,7 +74,7 @@ const Lesson3 = () => {
       dataIndex: "image",
       title: "Avatar",
       width: 100,
-      render: (image: any) => (
+      render: (image: string) => (
         <Image src={image} alt="Avatar" style={{ width: "32px", height: "32px", borderRadius: "50%" }} />
       ),
     },

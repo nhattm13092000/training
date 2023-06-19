@@ -90,7 +90,7 @@ const lesson6 = () => {
                         <Form.List name={"students"}>
                             {(fields, { add, remove }) => (
                                 <>
-                                    {fields.map((field, index) => {
+                                    {fields.map((field) => {
                                         return (
                                             <Space key={field.key} direction='horizontal'>
                                                 <div className='flex w-full flex-col gap-6 mt-[10px]'>
@@ -147,14 +147,14 @@ const lesson6 = () => {
                                     <div className="flex">
                                     <Form.Item>
                                         <Button onClick={() => {
-                                            
+                                            console.log("filter");      
                                         }}>
                                             filter
                                         </Button>
                                     </Form.Item>
                                     <Form.Item>
                                         <Button onClick={() => {
-                                            
+                                            console.log("filter");  
                                         }}>
                                             Clear
                                         </Button>

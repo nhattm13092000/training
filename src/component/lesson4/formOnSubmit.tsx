@@ -1,24 +1,25 @@
 import { useForm } from "react-hook-form";
 import { DatePicker } from "antd";
-import moment from "moment";
 import type { RangePickerProps } from "antd/es/date-picker";
 import dayjs from "dayjs";
+import moment, { Dayjs } from "dayjs";
+
 const formOnBlur = () => {
   const {
     register,
     watch,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = () => {
+    console.log("Done");
   };
 
   const disableDateRanges = () => {
     const startDate = moment("1980-01-01");
     const endDate = moment("2021-01-01");
-    return function disabledDate(current: any) {
+    return function disabledDate(current: Dayjs) {
       return (
         current && (current.isBefore(startDate) || current.isAfter(endDate))
       );
@@ -200,7 +201,7 @@ const formOnBlur = () => {
                 required: "Webtsite is required",
                 pattern: {
                   value:
-                    /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/,
+                    /^(http(s):\/\/.)[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&//=]*)$/,
                   message: "Nhập đúng định dạng url",
                 },
               })}
@@ -298,7 +299,7 @@ const formOnBlur = () => {
                 required: "FaceBookURL is required",
                 pattern: {
                   value:
-                    /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/,
+                  /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w]*\/)*([\w]*)/,
                   message: "Nhập đúng định dạng facebook",
                 },
               })}
