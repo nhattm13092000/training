@@ -1,8 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Router from '../routerLesson'
 
-
 const allLesson = () => {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("logined")
+    navigate('/signin')
+  }
   return (
     <div className="flex flex-col">
       <div className="border header flex justify-between items-center px-4 sticky top-0 h-[7vh] z-50 bg-white">
@@ -15,7 +21,7 @@ const allLesson = () => {
           </NavLink>
         </div>
         <b>Bài thực hành react ( ts required )</b>
-        <button className="bg-[rgb(37,99,235,1)] text-white text-sm px-3 rounded py-2 h-fit">
+        <button className="bg-[rgb(37,99,235,1)] text-white text-sm px-3 rounded py-2 h-fit" onClick={handleLogout}>
           Logout
         </button>
       </div>

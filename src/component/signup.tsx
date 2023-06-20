@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const signUp = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,7 +16,9 @@ const signUp = () => {
   });
 
   const onSubmit = () => {
-    console.log("Done");
+    
+    localStorage.setItem("user", JSON.stringify(input));
+    navigate('/signin')
   };
   return (
     <div className="bg-gray-50 dark:bg-gray-900 h-[100vh] flex items-center justify-center">
@@ -46,11 +49,11 @@ const signUp = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
                   setInput({
                     ...input,
-                    [e.target.name]: e.target.name,
+                    [e.target.name]: e.target.value,
                   })
                 }
               />
-              {errors.email && <span>{errors.email.message?.toString()}</span>}
+              {errors.email && <span className="ml-[5px] mt-[5px] text-[rgb(220,38,38,1)]">{errors.email.message?.toString()}</span>}
             </div>
 
             <div>
@@ -75,13 +78,13 @@ const signUp = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
                   setInput({
                     ...input,
-                    [e.target.name]: e.target.name,
+                    [e.target.name]: e.target.value,
                   })
                 }
                 type="password"
               />
               {errors.password && (
-                <span role="alert">{errors.password.message?.toString()}</span>
+                <span className="ml-[5px] mt-[5px] text-[rgb(220,38,38,1)]" role="alert">{errors.password.message?.toString()}</span>
               )}
             </div>
             <div>
@@ -105,7 +108,7 @@ const signUp = () => {
                 type="password"
               />
               {errors.rewritepassword && (
-                <span role="alert">{errors.rewritepassword.message?.toString()}</span>
+                <span className="ml-[5px] mt-[5px] text-[rgb(220,38,38,1)]" role="alert">{errors.rewritepassword.message?.toString()}</span>
               )}
             </div>
             <button

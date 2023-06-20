@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom"
 
@@ -11,8 +12,19 @@ const signin = () => {
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    navigate('/welcome')
+    const logUser = JSON.parse(localStorage.getItem("user") || '{}'); 
+    if(input.email === logUser.email && input.password === logUser.password){
+      localStorage.setItem("logined", "true");
+      navigate('/welcome')
+    }else{
+      alert('Wrong email or password');
+    }
   };
+
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
   return (
     <div className="bg-gray-50 dark:bg-gray-900 h-[100vh] flex items-center justify-center">
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -29,6 +41,7 @@ const signin = () => {
                 Your email:
               </label>
               <input
+                value={input.email}
                 placeholder="name@company.com"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 {...register("email", {
@@ -38,8 +51,14 @@ const signin = () => {
                     message: "Invalid email address",
                   },
                 })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
               />
-              {errors.email && <span>{errors.email.message?.toString()}</span>}
+              {errors.email && <span className="ml-[5px] mt-[5px] text-[rgb(220,38,38,1)]">{errors.email.message?.toString()}</span>}
             </div>
 
             <div>
@@ -51,6 +70,7 @@ const signin = () => {
               </label>
               <input
                 id="password"
+                value={input.password}
                 placeholder="Input password"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 {...register("password", {
@@ -60,10 +80,16 @@ const signin = () => {
                     message: "min length is 5",
                   },
                 })}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
                 type="password"
               />
               {errors.password && (
-                <span role="alert">{errors.password.message?.toString()}</span>
+                <span className="ml-[5px] mt-[5px] text-[rgb(220,38,38,1)]" role="alert">{errors.password.message?.toString()}</span>
               )}
             </div>
             <div className="flex items-center justify-between">
